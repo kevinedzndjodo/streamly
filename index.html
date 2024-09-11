@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streamly Invoice Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .country-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div class="md:flex">
+          <div class="p-8 w-full">
+            <img src="src/img/logostreamly.png" class="w-fit h-42 mx-auto" alt="">
+              <h1 class="block text-2xl font-bold text-gray-800 mb-6 text-center">Streamly Invoice Generator</h1>
+              <form id="invoiceForm" class="space-y-4">
+                  <div>
+                      <label for="name" class="block text-md font-medium text-gray-700">Full Name</label>
+                      <input type="text" id="name" required class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                  </div>
+                  
+                  <div>
+                      <label for="phone" class="block text-md font-medium text-gray-700">Phone Number</label>
+                      <div class="mt-1 flex rounded-md shadow-sm">
+                          <div class="relative inline-block text-left">
+                              <div>
+                                  <button type="button" id="countryDropdown" class="inline-flex justify-center w-full rounded-l-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-md font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500" aria-haspopup="true" aria-expanded="true">
+                                      <span id="selectedCountry">🇨🇲 +237</span>
+                                      <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                      </svg>
+                                  </button>
+                              </div>
+                              <div id="countryList" class="hidden origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 country-list">
+                                  <!-- Country options will be populated here -->
+                              </div>
+                          </div>
+                          <input type="tel" id="phone" required class="flex-1 block w-full rounded-none rounded-r-md border-gray-300 focus:ring-indigo-500 p-2 focus:border-indigo-500 sm:text-md" placeholder="Phone number">
+                      </div>
+                  </div>
+                  
+                  <div>
+                      <label for="service" class="block text-md font-medium text-gray-700">Service</label>
+                      <select id="service" required class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                          <option value="">Select a service</option>
+                          <option value="Netflix">Netflix</option>
+                          <option value="Spotify">Spotify</option>
+                          <option value="Amazon Prime">Amazon Prime</option>
+                          <option value="Apple Music">Apple Music</option>
+                          <option value="Crunchyroll">Crunchyroll</option>
+                      </select>
+                  </div>
+                  
+                  <div>
+                      <label for="duration" class="block text-md font-medium text-gray-700">Duration</label>
+                      <select id="duration" required class="mt-1 block w-full p-2 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                          <option value="">Select duration</option>
+                          <option value="1">1 month</option>
+                          <option value="3">3 months</option>
+                          <option value="6">6 months</option>
+                          <option value="12">1 year</option>
+                      </select>
+                  </div>
+                  
+                  <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      Generate Invoice
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+
+  <div id="invoicePreview" class="hidden max-w-md mx-auto mt-8 bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div class="p-8">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Invoice Preview</h2>
+          <div id="previewContent" class="space-y-2"></div>
+          <button id="downloadPDF" class="mt-6 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-md font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+              Download PDF
+          </button>
+      </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
